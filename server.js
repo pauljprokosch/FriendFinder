@@ -40,7 +40,22 @@ var possibleFriends = [
 	{
 	 name: "Heidi",
 	 photo: "http://via.placeholder.com/350x150",
-	 scores: [1,1,1,1,1,1,1,1,1,1]
+	 scores: ["1","1","1","1","1","1","1","1","1","1"]
+	},
+	{
+	 name: "Christine",
+	 photo: "http://via.placeholder.com/350x150",
+	 scores: ["2","5","3","5","4","2","1","1","2","3"]
+	},
+	{
+	 name: "Janet",
+	 photo: "http://via.placeholder.com/350x150",
+	 scores: ["2","3","4","5","1","2","3","4","5","1"]
+	},
+	{
+	 name: "Joan",
+	 photo: "http://via.placeholder.com/350x150",
+	 scores: ["4","4","4","3","3","3","4","4","3","2"]
 	}
 ];
 app.get ("/",function(req,res){
