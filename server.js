@@ -67,6 +67,11 @@ app.get('/survey', function (req, res) {
 app.get('/api/friends', function (req,res) {
   res.json(possibleFriends);
 });
+app.post("/api/friends", function(req, res) {
+	var newFriend = req.body;
+	console.log(newFriend);
+	possibleFriends.push(newFriend);
+});
 app.listen(PORT, function() {
   console.log("App listening on PORT: " + PORT);
 });

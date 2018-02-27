@@ -6,7 +6,7 @@
 
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-
+  <script src="https://code.jquery.com/jquery.js"></script>
 </head>
 <body>
 
@@ -14,14 +14,14 @@
 
     <h3>About You</h3>
     <h4>Name</h4>
-    <input type="text" name="1">
+    <input type="text" name="1" id = "name-input">
     <br>
     <h4>Picture</h4>
-    <input type="text" name="2">
+    <input type="text" name="2" id = "photo-input">
 
     <h3>question 1</h3>
     <h4>Your mind is always buzzing with unexplored ideas and plans</h4>
-        <select class=select>
+        <select class=select id="q1">
           <option value=1>1</option>
           <option value=2>2</option>
           <option value=3>3</option>
@@ -30,7 +30,7 @@
         </select>
      <h3>question 2</h3>
      <h4>Generally speaking, you rely more on experience than your imagination.</h4>   
-         <select class=select>
+         <select class=select id="q2">
           <option value=1>1</option>
           <option value=2>2</option>
           <option value=3>3</option>
@@ -39,7 +39,7 @@
         </select>
      <h3>question 3</h3>
      <h4>You find it easy to stay relaxed and focused even when there is some pressure.</h4>   
-         <select class=select>
+         <select class=select id="q3">
           <option value=1>1</option>
           <option value=2>2</option>
           <option value=3>3</option>
@@ -48,7 +48,7 @@
         </select>
      <h3>question 4</h3>
      <h4>You rarely do something just out of sheer curiousity</h4>   
-         <select class=select>
+         <select class=select id="q4">
           <option value=1>1</option>
           <option value=2>2</option>
           <option value=3>3</option>
@@ -57,7 +57,7 @@
         </select>
      <h3>question 5</h3>
      <h4>People can rarely upset you</h4>   
-         <select class=select>
+         <select class=select id="q5">
           <option value=1>1</option>
           <option value=2>2</option>
           <option value=3>3</option>
@@ -66,7 +66,7 @@
         </select>
      <h3>question 6</h3>
      <h4>It is often difficult for you to relate to other people's feelings.</h4>   
-         <select class=select>
+         <select class=select id="q6">
           <option value=1>1</option>
           <option value=2>2</option>
           <option value=3>3</option>
@@ -75,7 +75,7 @@
         </select> 
      <h3>question 7</h3>
      <h4>In a discussion, truth should be more important than someone's sensitivities.</h4>   
-         <select class=select>
+         <select class=select id="q7">
           <option value=1>1</option>
           <option value=2>2</option>
           <option value=3>3</option>
@@ -84,7 +84,7 @@
         </select>  
      <h3>question 8</h3>
      <h4>You rarely get carried away by fantasies and ideas.</h4>   
-         <select class=select>
+         <select class=select id="q8">
           <option value=1>1</option>
           <option value=2>2</option>
           <option value=3>3</option>
@@ -93,7 +93,16 @@
         </select> 
      <h3>question 9</h3>
      <h4>You think that everyone’s views should be respected regardless of whether they are supported by facts or not.</h4>   
-         <select class=select>
+         <select class=select id="q9">
+          <option value=1>1</option>
+          <option value=2>2</option>
+          <option value=3>3</option>
+          <option value=4>4</option>
+          <option value=5>5</option>
+        </select>
+     <h3>question 10</h3>
+     <h4>You think that everyone’s views should be respected regardless of whether they are supported by facts or not.</h4>   
+         <select class=select id="q10">
           <option value=1>1</option>
           <option value=2>2</option>
           <option value=3>3</option>
@@ -101,19 +110,62 @@
           <option value=5>5</option>
         </select> 
       <div class="text-center">
-        <a href="/tables"><button type="button" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-list-alt"></span> submit survey</button></a>
+        <a href="/survey"><button type="button" id="submit-button" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-list-alt"></span> submit survey</button></a>
       </div>
 
     </div>
 
     <footer class="footer">
       <div class="container">
-        <p><a href="/api/tables">API Table Link</a> | <a href="/api/friendlist">API Friends List</a> | <a href="https://github.com/Friends">GitHub Repo</a></p>
+        <p><a href="/api/tables">API Table Link</a> | <a href="/api/friends">API Friends List</a> | <a href="https://github.com/Friends">GitHub Repo</a></p>
       </div>
     </footer>
 
-  </div>
+  <script type="text/javascript">
 
+    $("#submit-button").on("click", function(event) {
+      console.log("information submitted");
+      event.preventDefault();
+      var scoreArray = [];
+      for (i=1; i <11; i++){
+        scoreArray.push(document.getElementById("q" + i).value);
+      }
+      var newFriend = {
+        name: $("#name-input").val().trim(),
+        photo: $("#photo-input").val().trim(),
+        scores: scoreArray
+      };
+        console.log(newFriend);
 
+        var bestFriend = "";
+        var userCompatibility = 50;
+        var friendsScore = 0;
+        for (i=0;i<otherFriends.length;i++){
+          for (j=0;j<scoreArray.length;j++){
+              var score1 = scoreArray[j];
+              var score2 = otherFriends[i].scores[j];
+              var result = Math.abs(score1-score2);
+              friendsScore += result;
+            }
+            if (friendsScore < userCompatibility){
+              userCompatibility = friendsScore;
+              bestFriend = otherFriends[i].name;
+            }
+        }
+        for (i=0;i<otherFriends.length;i++){
+          if (bestFriend === otherFriends[i].name){
+            //display modal popup showing the best friends name and their picture
+            //For now alert just the best friends name
+            alert(otherFriends[i].name);
+          }
+        }
+        //Need to retrieve the possibleFriends array from server.js and export it as otherFriends
+
+      $.post("/api/friends", newFriend)
+      .then(function(data) {
+        console.log(data);
+      });
+    });
+  </script>
 </body>
 </html>
